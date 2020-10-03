@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 
 module.exports = (config) => {
   const isProd = config.mode === "production";
