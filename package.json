@@ -1,6 +1,6 @@
 {
   "name": "@ngneat/tailwind",
-  "version": "3.0.7",
+  "version": "4.0.0",
   "license": "MIT",
   "description": "A schematic that adds TailwindCSS to Angular applications",
   "author": "Chau Tran",

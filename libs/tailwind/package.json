@@ -1,6 +1,6 @@
 {
   "name": "@ngneat/tailwind",
-  "version": "3.0.7",
+  "version": "4.0.0",
   "main": "src/index.js",
   "schematics": "./collection.json",
   "builders": "./builders.json"

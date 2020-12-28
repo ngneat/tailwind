@@ -1,4 +1,36 @@
 CHANGELOG
+## [4.0.0](https://github.com/ngneat/tailwind/compare/v3.0.7...v4.0.0) (2020-12-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* patch angulars postcss config
+
+### Bug Fixes
+
+* ensure project windows support ([2adc40b](https://github.com/ngneat/tailwind/commit/2adc40b111a0cde45bb6728da182141be6e48555))
+
+
+### Features/Enhancements
+
+* add enableTailwindInComponentsStyles to schematics ([5a3b325](https://github.com/ngneat/tailwind/commit/5a3b32557759b9821531b02d9948a96067d96714))
+* add tailwind to all postcss configs ([4bf8c0c](https://github.com/ngneat/tailwind/commit/4bf8c0cc5601b9e95dbd2d515ac9076f2e4c4561))
+* check for tailwindConfig variable ([eda8fd5](https://github.com/ngneat/tailwind/commit/eda8fd52a9bb98c11c2e2d3596770ea18c9c8e1e))
+* patchWebpackPostcssPlugins function ([531b4c2](https://github.com/ngneat/tailwind/commit/531b4c263af48e8ce4b0fd6e45f483e150b8c661))
+
+
+### Refactors
+
+* edit labels ([0c855b8](https://github.com/ngneat/tailwind/commit/0c855b8ee54c6fe5dcf1debbafd336cc8e581c36))
+* patchWebpackPostcssPlugins ([6bf1d9c](https://github.com/ngneat/tailwind/commit/6bf1d9cdcd186171f5a9376eedac8fc9d21bd35a))
+* remove returns in patchWebpackPostcssPlugins ([a4e42e4](https://github.com/ngneat/tailwind/commit/a4e42e42563d4f6b1211f2caeb81325d2cb7e0f7))
+* tailwinds pathConfig ([77b738b](https://github.com/ngneat/tailwind/commit/77b738ba0ff99d2f6c20f2420d69891e955a49e4))
+
+
+### Documentations
+
+* add [@vltansky](https://github.com/vltansky) as a contributor ([8de935b](https://github.com/ngneat/tailwind/commit/8de935bea25a7faf480cf5389cc6dd4abf4763d0))
+
 ### [3.0.7](https://github.com/ngneat/tailwind/compare/v3.0.4...v3.0.7) (2020-12-27)
 
 
