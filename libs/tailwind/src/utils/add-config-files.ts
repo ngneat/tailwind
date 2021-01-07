@@ -11,6 +11,7 @@ import { isInJest } from './is-in-jest';
 
 export function addConfigFiles(
   enableTailwindInComponentsStyles: boolean,
+  darkMode: 'none' | 'class' | 'media',
   appsDir?: string,
   libsDir?: string,
   sourceRoot = 'src'
@@ -19,6 +20,7 @@ export function addConfigFiles(
     apply(url(isInJest() ? '../files' : './files'), [
       applyTemplates({
         enableTailwindInComponentsStyles,
+        darkMode,
         appsDir,
         libsDir,
         sourceRoot,

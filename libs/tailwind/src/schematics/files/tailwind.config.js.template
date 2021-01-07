@@ -8,7 +8,7 @@ module.exports = (isProd) => ({
         './<%= libsDir %>/**/*.{html,ts}',<% } %>
       ]
     },
-    darkMode: false, // or 'media' or 'class'
+    darkMode: <% if (darkMode !== 'none') {%>'<%= darkMode %>'<% } else { %>false<% } %>, // or 'media' or 'class'
     theme: {
       extend: {},
     },

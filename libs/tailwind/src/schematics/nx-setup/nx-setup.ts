@@ -44,15 +44,22 @@ export default function (options: TailwindSchematicsOptions): Rule {
       return;
     }
 
-    const { enableTailwindInComponentsStyles, projectName, appsDir, libsDir } = normalizeOptions(
-      options,
-      tree,
-      context
-    );
+    const {
+      enableTailwindInComponentsStyles,
+      darkMode,
+      projectName,
+      appsDir,
+      libsDir,
+    } = normalizeOptions(options, tree, context);
 
     return chain([
       addDependenciesToPackageJson(),
-      addConfigFiles(enableTailwindInComponentsStyles, appsDir, libsDir),
+      addConfigFiles(
+        enableTailwindInComponentsStyles,
+        darkMode,
+        appsDir,
+        libsDir
+      ),
       updateWorkspaceTargets(projectName, updateWorkspace),
       updateProjectRootStyles(projectName, getWorkspace, InsertChange),
     ])(tree, context);
@@ -103,6 +110,7 @@ function normalizeOptions(
       .split(projectRootDir(ProjectType.Application) + '/')
       .pop(),
     projectRoot: project.data.root,
+    darkMode: options.darkMode || 'none',
     appsDir: appsDir(tree),
     libsDir: libsDir(tree),
   };

@@ -147,6 +147,37 @@ Object.entries(schematicsTestOptions).forEach(([schematic, options]) => {
         .toPromise();
       expect(tree.exists('./tailwind.config.js')).toEqual(true);
       expect(tree.exists('./webpack.config.js')).toEqual(true);
+      expect(tree.readContent('./tailwind.config.js')).toContain(
+        `darkMode: false`
+      );
+      done();
+    });
+
+    it(`should add a tailwind config to with darkMode set to 'class'`, async (done) => {
+      const tree = await schematicRunner
+        .runSchematicAsync(
+          schematic,
+          { style: 'scss', project: 'foo', darkMode: 'class' },
+          appTree
+        )
+        .toPromise();
+      expect(tree.readContent('./tailwind.config.js')).toContain(
+        `darkMode: 'class'`
+      );
+      done();
+    });
+
+    it(`should add a tailwind config to with darkMode set to 'media'`, async (done) => {
+      const tree = await schematicRunner
+        .runSchematicAsync(
+          schematic,
+          { style: 'scss', project: 'foo', darkMode: 'media' },
+          appTree
+        )
+        .toPromise();
+      expect(tree.readContent('./tailwind.config.js')).toContain(
+        `darkMode: 'media'`
+      );
       done();
     });
   });

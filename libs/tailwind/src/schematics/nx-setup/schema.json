@@ -13,6 +13,12 @@
       },
       "x-prompt": "What project would you like to use? (skip to use default project)"
     },
+    "darkMode": {
+      "description": "Whether to enable darkMode in tailwind.config.js",
+      "type": "string",
+      "enum": ["none", "class", "media"],
+      "default": "none"
+    },
     "enableTailwindInComponentsStyles": {
       "description": "Whether to use tailwind directives & functions in component styles? (might increase build time)",
       "type": "boolean",

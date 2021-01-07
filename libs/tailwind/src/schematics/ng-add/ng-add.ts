@@ -83,6 +83,7 @@ function setupProject(
   return chain([
     addConfigFiles(
       options.enableTailwindInComponentsStyles,
+      options.darkMode,
       undefined,
       undefined,
       projectSourceRoot
