@@ -1,5 +1,18 @@
+export type TailwindDarkMode = 'none' | 'class' | 'media';
+
 export interface TailwindSchematicsOptions {
   project: string;
-  darkMode: 'none' | 'class' | 'media';
+  darkMode: TailwindDarkMode;
   enableTailwindInComponentsStyles: boolean;
+}
+
+export interface NormalizedTailwindSchematicsOptions
+  extends TailwindSchematicsOptions {
+  projectName?: string;
+  projectRoot?: string;
+  sourceRoot?: string;
+  projectDirectory?: string;
+  appsDir?: string;
+  libsDir?: string;
+  dependencies?: string[];
 }

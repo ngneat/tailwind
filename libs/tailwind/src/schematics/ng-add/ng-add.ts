@@ -9,7 +9,6 @@ import type {
   updateWorkspace as updateNxWorkspace,
 } from '@nrwl/workspace';
 import { InsertChange } from '@schematics/angular/utility/change';
-import { getWorkspace as getWorkspaceConfig } from '@schematics/angular/utility/config';
 import {
   addPackageJsonDependency,
   NodeDependency,
@@ -19,8 +18,6 @@ import {
   getWorkspace,
   updateWorkspace,
 } from '@schematics/angular/utility/workspace';
-
-import { DEPENDENCIES } from '../../constants';
 import {
   addConfigFiles,
   getLatestNodeVersion,
@@ -28,7 +25,11 @@ import {
   updateProjectRootStyles,
   updateWorkspaceTargets,
 } from '../../utils';
-import type { TailwindSchematicsOptions } from '../schema';
+import { normalizeOptions } from '../../utils/normalize-options';
+import type {
+  NormalizedTailwindSchematicsOptions,
+  TailwindSchematicsOptions,
+} from '../schema';
 
 export default function (options: TailwindSchematicsOptions): Rule {
   return (tree, context) => {
@@ -37,14 +38,12 @@ export default function (options: TailwindSchematicsOptions): Rule {
       context.addTask(new RunSchematicTask('nx-setup', options));
       return tree;
     }
-
-    const workspace = getWorkspaceConfig(tree);
-    const projectSourceRoot = workspace.projects[options.project]?.sourceRoot;
+    const normalizedOptions = normalizeOptions(options, tree, context);
 
     return chain([
-      addPackageJsonDependencies(DEPENDENCIES),
+      addPackageJsonDependencies(normalizedOptions.dependencies),
       installDependencies(),
-      setupProject(options, projectSourceRoot),
+      setupProject(normalizedOptions),
     ])(tree, context);
   };
 }
@@ -76,18 +75,9 @@ function installDependencies(): Rule {
   };
 }
 
-function setupProject(
-  options: TailwindSchematicsOptions,
-  projectSourceRoot?: string
-): Rule {
+function setupProject(options: NormalizedTailwindSchematicsOptions): Rule {
   return chain([
-    addConfigFiles(
-      options.enableTailwindInComponentsStyles,
-      options.darkMode,
-      undefined,
-      undefined,
-      projectSourceRoot
-    ),
+    addConfigFiles(options),
     updateWorkspaceTargets(
       options.project,
       (updateWorkspace as unknown) as typeof updateNxWorkspace
