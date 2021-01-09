@@ -42,17 +42,17 @@ export default function (options: TailwindSchematicsOptions): Rule {
     const projectSourceRoot = workspace.projects[options.project]?.sourceRoot;
 
     return chain([
-      addPackageJsonDependencies(),
+      addPackageJsonDependencies(DEPENDENCIES),
       installDependencies(),
       setupProject(options, projectSourceRoot),
     ])(tree, context);
   };
 }
 
-function addPackageJsonDependencies(): Rule {
+function addPackageJsonDependencies(dependencies: string[]): Rule {
   return (tree, context) => {
     return Promise.all(
-      [...DEPENDENCIES].map((dep) =>
+      dependencies.map((dep) =>
         getLatestNodeVersion(dep).then(({ name, version }) => {
           context.logger.info(`✅️ Added ${name}@${version}`);
           const nodeDependency: NodeDependency = {

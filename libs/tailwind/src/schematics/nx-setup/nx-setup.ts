@@ -33,6 +33,7 @@ interface NormalizedTailwindSchematicsOptions
   projectDirectory: string;
   appsDir?: string;
   libsDir?: string;
+  dependencies?: string[];
 }
 
 export default function (options: TailwindSchematicsOptions): Rule {
@@ -50,10 +51,11 @@ export default function (options: TailwindSchematicsOptions): Rule {
       projectName,
       appsDir,
       libsDir,
+      dependencies,
     } = normalizeOptions(options, tree, context);
 
     return chain([
-      addDependenciesToPackageJson(),
+      addDependenciesToPackageJson(dependencies),
       addConfigFiles(
         enableTailwindInComponentsStyles,
         darkMode,
@@ -66,11 +68,11 @@ export default function (options: TailwindSchematicsOptions): Rule {
   };
 }
 
-function addDependenciesToPackageJson(): Rule {
+function addDependenciesToPackageJson(dependencies: string[]): Rule {
   return async (tree: Tree, ctx: SchematicContext) => {
     const devDeps = (
       await Promise.all(
-        [...DEPENDENCIES].map((dep) =>
+        dependencies.map((dep) =>
           getLatestNodeVersion(dep).then(({ name, version }) => {
             ctx.logger.info(`✅️ Added ${name}@${version}`);
             return { name, version };
@@ -102,6 +104,8 @@ function normalizeOptions(
     throw new Error(msg);
   }
 
+  const dependencies = [...DEPENDENCIES];
+
   return {
     ...options,
     project: project.name,
@@ -113,6 +117,7 @@ function normalizeOptions(
     darkMode: options.darkMode || 'none',
     appsDir: appsDir(tree),
     libsDir: libsDir(tree),
+    dependencies,
   };
 }
 
