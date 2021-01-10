@@ -15,6 +15,7 @@ export function addConfigFiles({
   darkMode,
   appsDir,
   libsDir,
+  plugins,
   sourceRoot = 'src',
 }: NormalizedTailwindSchematicsOptions): Rule {
   return mergeWith(
@@ -24,6 +25,7 @@ export function addConfigFiles({
         darkMode,
         appsDir,
         libsDir,
+        plugins,
         sourceRoot,
       }),
       move(normalize('./')),

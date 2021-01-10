@@ -15,5 +15,5 @@ module.exports = (isProd) => ({
     variants: {
       extend: {},
     },
-    plugins: [],
+    plugins: [<%= plugins %>],
 });

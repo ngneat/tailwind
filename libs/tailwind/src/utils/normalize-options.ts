@@ -35,7 +35,10 @@ export function normalizeOptions(
   tree: Tree,
   context: SchematicContext
 ): NormalizedTailwindSchematicsOptions {
-  const dependencies = [...DEPENDENCIES];
+  const plugins = options.plugins || [];
+  const pluginPackages = plugins?.map((plugin) => `@tailwindcss/${plugin}`);
+  const pluginRequires = pluginPackages.map((pkg) => `require('${pkg}')`);
+  const dependencies = [...DEPENDENCIES, ...pluginPackages];
   const darkMode = options.darkMode || 'none';
   if (isNx(tree)) {
     const project = getDefaultProjectFromGraph(
@@ -61,6 +64,7 @@ export function normalizeOptions(
       libsDir: libsDir(tree),
       darkMode,
       dependencies,
+      plugins: pluginRequires,
     };
   }
 
@@ -72,5 +76,6 @@ export function normalizeOptions(
     darkMode,
     dependencies,
     sourceRoot,
+    plugins: pluginRequires,
   };
 }

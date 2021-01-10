@@ -153,7 +153,7 @@ Object.entries(schematicsTestOptions).forEach(([schematic, options]) => {
       done();
     });
 
-    it(`should add a tailwind config to with darkMode set to 'class'`, async (done) => {
+    it(`should add a tailwind config with darkMode set to 'class'`, async (done) => {
       const tree = await schematicRunner
         .runSchematicAsync(
           schematic,
@@ -167,7 +167,7 @@ Object.entries(schematicsTestOptions).forEach(([schematic, options]) => {
       done();
     });
 
-    it(`should add a tailwind config to with darkMode set to 'media'`, async (done) => {
+    it(`should add a tailwind config with darkMode set to 'media'`, async (done) => {
       const tree = await schematicRunner
         .runSchematicAsync(
           schematic,
@@ -178,6 +178,30 @@ Object.entries(schematicsTestOptions).forEach(([schematic, options]) => {
       expect(tree.readContent('./tailwind.config.js')).toContain(
         `darkMode: 'media'`
       );
+      done();
+    });
+
+    it(`should add a tailwind config with all the plugins enabled`, async (done) => {
+      const plugins = ['aspect-ratio', 'forms', 'line-clamp', 'typography'];
+      const tree = await schematicRunner
+        .runSchematicAsync(
+          schematic,
+          {
+            style: 'scss',
+            project: 'foo',
+            plugins,
+          },
+          appTree
+        )
+        .toPromise();
+      for (const plugin of plugins) {
+        expect(tree.readContent('./tailwind.config.js')).toContain(
+          `require('@tailwindcss/${plugin}')`
+        );
+        expect(tree.readContent('./package.json')).toContain(
+          `@tailwindcss/${plugin}`
+        );
+      }
       done();
     });
   });

@@ -4,6 +4,7 @@ export interface TailwindSchematicsOptions {
   project: string;
   darkMode: TailwindDarkMode;
   enableTailwindInComponentsStyles: boolean;
+  plugins: string[];
 }
 
 export interface NormalizedTailwindSchematicsOptions

@@ -23,6 +23,16 @@
       "type": "boolean",
       "default": false,
       "x-prompt": "Would you like to use tailwind directives & functions in component styles? (might increase build time)"
+    },
+    "plugins": {
+      "description": "What @tailwindcss plugins you want to enable in tailwind.config.js",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": ["aspect-ratio", "forms", "line-clamp", "typography"],
+        "type": "string"
+      },
+      "x-prompt": "What @tailwindcss plugins do you want to enable?"
     }
   }
 }
