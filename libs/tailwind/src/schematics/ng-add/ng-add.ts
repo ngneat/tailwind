@@ -26,6 +26,7 @@ import {
   updateWorkspaceTargets,
 } from '../../utils';
 import { normalizeOptions } from '../../utils/normalize-options';
+import { updateIndexHtml } from '../../utils/update-index-html';
 import type {
   NormalizedTailwindSchematicsOptions,
   TailwindSchematicsOptions,
@@ -86,6 +87,11 @@ function setupProject(options: NormalizedTailwindSchematicsOptions): Rule {
       options.project,
       (getWorkspace as unknown) as typeof getNxWorkspace,
       (InsertChange as unknown) as typeof NxInsertChange
+    ),
+    updateIndexHtml(
+      options.project,
+      options.darkMode,
+      (updateWorkspace as unknown) as typeof updateNxWorkspace
     ),
   ]);
 }

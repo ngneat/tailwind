@@ -18,6 +18,7 @@ import {
   updateWorkspaceTargets,
 } from '../../utils';
 import { normalizeOptions } from '../../utils/normalize-options';
+import { updateIndexHtml } from '../../utils/update-index-html';
 import type { TailwindSchematicsOptions } from '../schema';
 
 export default function (options: TailwindSchematicsOptions): Rule {
@@ -39,6 +40,11 @@ export default function (options: TailwindSchematicsOptions): Rule {
         normalizedOptions.projectName,
         getWorkspace,
         InsertChange
+      ),
+      updateIndexHtml(
+        normalizedOptions.projectName,
+        normalizedOptions.darkMode,
+        updateWorkspace
       ),
     ])(tree, context);
   };

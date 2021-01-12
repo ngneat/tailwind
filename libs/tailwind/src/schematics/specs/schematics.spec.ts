@@ -3,6 +3,7 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import { join } from 'path';
+import { get } from 'lodash';
 import { DEPENDENCIES } from '../../constants';
 
 const schematicsTestOptions = {
@@ -53,6 +54,15 @@ const schematicsTestOptions = {
     stylesRootPath: './projects/foo/src/styles.scss',
   },
 } as const;
+
+function getProjectIndexPath(tree: UnitTestTree, projectName: string) {
+  const workspace = JSON.parse(tree.readContent('/angular.json'));
+
+  return get(
+    workspace,
+    `projects.${projectName}.architect.build.options.index`
+  );
+}
 
 const collectionPath = join(__dirname, '../../../collection.json');
 
@@ -164,6 +174,8 @@ Object.entries(schematicsTestOptions).forEach(([schematic, options]) => {
       expect(tree.readContent('./tailwind.config.js')).toContain(
         `darkMode: 'class'`
       );
+      const indexPath = getProjectIndexPath(tree, 'foo');
+      expect(tree.readContent(indexPath)).toContain('<body class="dark">');
       done();
     });
 
@@ -178,6 +190,8 @@ Object.entries(schematicsTestOptions).forEach(([schematic, options]) => {
       expect(tree.readContent('./tailwind.config.js')).toContain(
         `darkMode: 'media'`
       );
+      const indexPath = getProjectIndexPath(tree, 'foo');
+      expect(tree.readContent(indexPath)).toContain('<body>');
       done();
     });
 
