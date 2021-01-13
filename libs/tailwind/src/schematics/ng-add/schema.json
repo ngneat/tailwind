@@ -16,7 +16,8 @@
       "description": "Whether to enable darkMode in tailwind.config.js",
       "type": "string",
       "enum": ["none", "class", "media"],
-      "default": "none"
+      "default": "none",
+      "x-prompt": "Would you like to enable dark mode?"
     },
     "enableTailwindInComponentsStyles": {
       "description": "Whether to use tailwind directives & functions in component styles? (might increase build time)",
