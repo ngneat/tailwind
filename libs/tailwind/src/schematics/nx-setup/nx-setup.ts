@@ -17,7 +17,7 @@ import {
   updateProjectRootStyles,
   updateWorkspaceTargets,
 } from '../../utils';
-import { normalizeOptions } from '../../utils/normalize-options';
+import { normalizeOptionsNx } from '../../utils/normalize-options-nx';
 import { updateIndexHtml } from '../../utils/update-index-html';
 import type { TailwindSchematicsOptions } from '../schema';
 
@@ -30,7 +30,7 @@ export default function (options: TailwindSchematicsOptions): Rule {
       return;
     }
 
-    const normalizedOptions = normalizeOptions(options, tree, context);
+    const normalizedOptions = normalizeOptionsNx(options, tree, context);
 
     return chain([
       addDependenciesToPackageJson(normalizedOptions.dependencies),
