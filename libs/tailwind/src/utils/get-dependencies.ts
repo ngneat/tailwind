@@ -1,9 +1,10 @@
 import { DEPENDENCIES } from '../constants';
 
 export function getDependencies(
-  plugins: string[] = []
+  plugins: string | string[] = []
 ): { dependencies: string[]; plugins: string[] } {
-  const pluginPackages = plugins?.map((plugin) => `@tailwindcss/${plugin}`);
+  const pluginArray = Array.isArray(plugins) ? plugins : plugins.split(',');
+  const pluginPackages = pluginArray?.map((plugin) => `@tailwindcss/${plugin}`);
 
   return {
     dependencies: [...DEPENDENCIES, ...pluginPackages],
