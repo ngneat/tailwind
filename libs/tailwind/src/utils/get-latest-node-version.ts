@@ -23,9 +23,13 @@ export function getLatestNodeVersion(
       res.on('data', (chunk) => (rawData += chunk));
       res.on('end', () => {
         try {
-          const response = JSON.parse(rawData);
-          const version = (response && response['dist-tags']) || {};
-          resolve(buildPackage(packageName, version.latest));
+          if (packageName.includes('@angular-builders/custom-webpack')) {
+            resolve(buildPackage(packageName, '10.0.1'));
+          } else {
+            const response = JSON.parse(rawData);
+            const version = (response && response['dist-tags']) || {};
+            resolve(buildPackage(packageName, version.latest));
+          }
         } catch (e) {
           resolve(buildPackage(packageName));
         }
