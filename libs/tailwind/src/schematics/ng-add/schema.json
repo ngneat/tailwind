@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema",
+  "$schema": "http://json-schema.org/schema",
   "id": "NgAdd",
   "title": "Schematics to setup Tailwind for Angular applications in AngularCLI/Nx Workspace (with Angular CLI)",
   "type": "object",
@@ -15,7 +15,11 @@
     "darkMode": {
       "description": "Whether to enable darkMode in tailwind.config.js",
       "type": "string",
-      "enum": ["none", "class", "media"],
+      "enum": [
+        "none",
+        "class",
+        "media"
+      ],
       "default": "none",
       "x-prompt": "Would you like to enable dark mode?"
     },
@@ -30,7 +34,12 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "enum": ["aspect-ratio", "forms", "line-clamp", "typography"],
+            "enum": [
+              "aspect-ratio",
+              "forms",
+              "line-clamp",
+              "typography"
+            ],
             "type": "string"
           },
           "x-prompt": "What @tailwindcss plugins do you want to enable?"
