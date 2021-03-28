@@ -10,9 +10,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/tailwind/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/tailwind/**/*.ts"]
           }
         },
         "test": {
@@ -21,9 +19,7 @@
             "jestConfig": "libs/tailwind/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/tailwind"
-          ]
+          "outputs": ["coverage/libs/tailwind"]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -51,9 +47,7 @@
               }
             ]
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "build-copy": {
           "builder": "@nrwl/workspace:run-commands",
