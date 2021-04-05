@@ -4,23 +4,51 @@ import {
   SchematicContext,
   Tree,
 } from '@angular-devkit/schematics';
+import { getPackageManagerCommand } from '@nrwl/tao/src/shared/package-manager';
 import {
   addDepsToPackageJson,
   getWorkspace,
   updateWorkspace,
 } from '@nrwl/workspace';
+import { getPackageJsonDependency } from '@schematics/angular/utility/dependencies';
+import { execSync } from 'child_process';
 import {
   addConfigFiles,
+  checkCliVersion,
   getLatestNodeVersion,
   isNx,
+  normalizeOptionsNx,
+  updateIndexHtml,
   updateProjectRootStyles,
 } from '../../utils';
-import { normalizeOptionsNx } from '../../utils/normalize-options-nx';
-import { updateIndexHtml } from '../../utils/update-index-html';
 import type { TailwindSchematicsOptions } from '../schema';
 
 export default function (options: TailwindSchematicsOptions): Rule {
   return (tree, context) => {
+    const [ngCliVersion, isTailwindSupported] = checkCliVersion(
+      tree,
+      '11.2',
+      '>='
+    );
+
+    console.log({ ngCliVersion, isTailwindSupported });
+
+    if (!isTailwindSupported && ngCliVersion) {
+      const tailwindPkg = '@ngneat/tailwind';
+      const tailwindDep = getPackageJsonDependency(tree, tailwindPkg);
+
+      console.log({ tailwindDep });
+
+      if (tailwindDep != null) {
+        execSync(`${getPackageManagerCommand().rm} ${tailwindPkg}`);
+      }
+      context.logger.info(`
+Detected AngularCLI version is ${ngCliVersion} which does not support TailwindCSS natively.
+Please run "ng add @ngneat/tailwind@6" for Custom Webpack support.
+`);
+      return tree;
+    }
+
     if (!isNx(tree)) {
       context.logger.fatal(
         'Schematics is not invoked inside of a Nx workspace. Please try again in a Nx workspace.'

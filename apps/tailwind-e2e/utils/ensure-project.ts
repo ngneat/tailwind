@@ -1,28 +1,24 @@
 import { cleanup, tmpProjPath } from '@nrwl/nx-plugin/testing';
+import { getPackageManagerCommand } from '@nrwl/tao/src/shared/package-manager';
 import { appRootPath } from '@nrwl/workspace/src/utils/app-root';
-import * as path from 'path';
-import {
-  detectPackageManager,
-  getPackageManagerInstallCommand,
-} from '@nrwl/workspace/src/utils/detect-package-manager';
-import { exec, execSync } from 'child_process';
+import { execSync } from 'child_process';
 import {
   ensureDirSync,
-  fstat,
-  readFileSync,
-  writeFileSync,
-  removeSync,
-  moveSync,
   existsSync,
+  moveSync,
+  readFileSync,
+  removeSync,
+  writeFileSync,
 } from 'fs-extra';
 import { tmpdir } from 'os';
+import * as path from 'path';
 
 function runNxNewCommand(args?: string, silent?: boolean) {
-  const localTmpDir = `./tmp/nx-e2e`;
+  const localTmpDir = path.dirname(tmpProjPath());
   return execSync(
     `node ${require.resolve(
       '@nrwl/tao'
-    )} new proj --no-interactive --skip-install --collection=@nrwl/workspace --npmScope=proj --preset=empty ${
+    )} new proj --nx-workspace-root=${localTmpDir} --no-interactive --skip-install --collection=@nrwl/workspace --npmScope=proj --preset=empty ${
       args || ''
     }`,
     {
@@ -47,13 +43,10 @@ function patchPackageJsonForPlugin(
  * @param silent silent output from the install
  */
 function runPackageManagerInstall(silent: boolean = true) {
-  const install = execSync(
-    getPackageManagerInstallCommand(detectPackageManager()),
-    {
-      cwd: tmpProjPath(),
-      ...(silent ? { stdio: ['ignore', 'ignore', 'ignore'] } : {}),
-    }
-  );
+  const install = execSync(getPackageManagerCommand().install, {
+    cwd: tmpProjPath(),
+    ...(silent ? { stdio: ['ignore', 'ignore', 'ignore'] } : {}),
+  });
   return install ? install.toString() : '';
 }
 
@@ -67,7 +60,7 @@ function runPackageManagerInstall(silent: boolean = true) {
 function newNxProject(
   npmPackageName: string,
   pluginDistPath: string,
-  cli: 'nx' | 'ng' = 'nx'
+  cli: 'nx' | 'angular' = 'nx'
 ): void {
   cleanup();
   runNxNewCommand(`--cli=${cli}`, true);
@@ -78,7 +71,7 @@ function newNxProject(
 export function ensureNxProject(
   pluginNpmName: string,
   pluginDistPath: string,
-  cli: 'nx' | 'ng' = 'nx'
+  cli: 'nx' | 'angular' = 'nx'
 ) {
   ensureDirSync(tmpProjPath());
   newNxProject(pluginNpmName, pluginDistPath, cli);

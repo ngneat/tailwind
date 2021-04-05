@@ -23,7 +23,9 @@ export function getDefaultProjectFromGraph(
       node.type === 'app' &&
       node.data.projectType === ProjectType.Application &&
       Object.values(node.data.architect).some((target) =>
-        (target as any).builder.includes('angular')
+        ((target as Record<string, unknown>).builder as string).includes(
+          'angular'
+        )
       )
   );
 }

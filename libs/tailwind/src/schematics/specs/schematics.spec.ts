@@ -2,8 +2,8 @@ import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
-import { join } from 'path';
 import { get } from 'lodash';
+import { join } from 'path';
 
 const schematicsTestOptions = {
   'nx-setup': {
@@ -98,7 +98,7 @@ Object.entries(schematicsTestOptions).forEach(([schematic, options]) => {
     }
 
     function createStyleFile(tree, name) {
-      ['css', 'scss', 'less'].forEach((ext) => {
+      ['css', 'scss', 'less'].forEach(() => {
         if (!tree.exists(name)) {
           tree.create(name, '');
         }

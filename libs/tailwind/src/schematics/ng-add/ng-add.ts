@@ -3,12 +3,14 @@ import {
   NodePackageInstallTask,
   RunSchematicTask,
 } from '@angular-devkit/schematics/tasks';
+import { getPackageManager } from '@angular/cli/utilities/package-manager';
 import type {
   getWorkspace as getNxWorkspace,
   updateWorkspace as updateNxWorkspace,
 } from '@nrwl/workspace';
 import {
   addPackageJsonDependency,
+  getPackageJsonDependency,
   NodeDependency,
   NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
@@ -16,14 +18,16 @@ import {
   getWorkspace,
   updateWorkspace,
 } from '@schematics/angular/utility/workspace';
+import { execSync } from 'child_process';
 import {
   addConfigFiles,
+  checkCliVersion,
   getLatestNodeVersion,
   isNx,
+  normalizeOptionsNg,
+  updateIndexHtml,
   updateProjectRootStyles,
 } from '../../utils';
-import { normalizeOptionsNg } from '../../utils/normalize-options-ng';
-import { updateIndexHtml } from '../../utils/update-index-html';
 import type {
   NormalizedTailwindSchematicsOptions,
   TailwindSchematicsOptions,
@@ -34,6 +38,26 @@ export default function (options: TailwindSchematicsOptions): Rule {
     if (isNx(tree)) {
       // If ng-add is invoked inside of Nx Workspace, call the nx-setup schematics instead
       context.addTask(new RunSchematicTask('nx-setup', options));
+      return tree;
+    }
+
+    const [cliVersion, isTailwindSupported] = checkCliVersion(
+      tree,
+      '11.2',
+      '>='
+    );
+
+    if (!isTailwindSupported) {
+      const tailwindPkg = '@ngneat/tailwind';
+      const tailwindDep = getPackageJsonDependency(tree, tailwindPkg);
+
+      if (tailwindDep != null) {
+        execSync(`${getPackageManager(tree.root.path)} rm ${tailwindPkg}`);
+      }
+      context.logger.info(`
+Detected AngularCLI version is ${cliVersion} which does not support TailwindCSS natively.
+Please run "ng add @ngneat/tailwind@6" for Custom Webpack support.
+`);
       return tree;
     }
 
