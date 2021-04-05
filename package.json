@@ -4,6 +4,20 @@
   "license": "MIT",
   "description": "A schematic that adds TailwindCSS to Angular applications",
   "author": "Chau Tran",
+  "maintainers": [
+    {
+      "name": "Chau Tran",
+      "url": "https://twitter.com/Nartc1410"
+    },
+    {
+      "name": "Vlad Tansky",
+      "url": "https://twitter.com/vltansky"
+    },
+    {
+      "name": "Bram Borggreve",
+      "url": "https://twitter.com/beeman_nl"
+    }
+  ],
   "keywords": [
     "tailwindcss",
     "angular",
@@ -90,11 +104,6 @@
       "npm run affected:lint",
       "npm run format:write"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "config": {
     "commitizen": {
