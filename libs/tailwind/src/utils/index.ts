@@ -13,3 +13,5 @@ export * from './normalize-options-nx';
 
 export * from './is-nx';
 export * from './is-in-jest';
+
+export const minimumAngularCliVersion = '11.2';

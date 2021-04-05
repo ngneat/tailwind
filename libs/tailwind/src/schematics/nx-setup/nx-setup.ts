@@ -17,6 +17,7 @@ import {
   checkCliVersion,
   getLatestNodeVersion,
   isNx,
+  minimumAngularCliVersion,
   normalizeOptionsNx,
   updateIndexHtml,
   updateProjectRootStyles,
@@ -27,17 +28,13 @@ export default function (options: TailwindSchematicsOptions): Rule {
   return (tree, context) => {
     const [ngCliVersion, isTailwindSupported] = checkCliVersion(
       tree,
-      '11.2',
+      minimumAngularCliVersion,
       '>='
     );
-
-    console.log({ ngCliVersion, isTailwindSupported });
 
     if (!isTailwindSupported && ngCliVersion) {
       const tailwindPkg = '@ngneat/tailwind';
       const tailwindDep = getPackageJsonDependency(tree, tailwindPkg);
-
-      console.log({ tailwindDep });
 
       if (tailwindDep != null) {
         execSync(`${getPackageManagerCommand().rm} ${tailwindPkg}`);

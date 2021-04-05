@@ -24,6 +24,7 @@ import {
   checkCliVersion,
   getLatestNodeVersion,
   isNx,
+  minimumAngularCliVersion,
   normalizeOptionsNg,
   updateIndexHtml,
   updateProjectRootStyles,
@@ -43,7 +44,7 @@ export default function (options: TailwindSchematicsOptions): Rule {
 
     const [cliVersion, isTailwindSupported] = checkCliVersion(
       tree,
-      '11.2',
+      minimumAngularCliVersion,
       '>='
     );
 
