@@ -14,4 +14,7 @@ export * from './normalize-options-nx';
 export * from './is-nx';
 export * from './is-in-jest';
 
+/**
+ * 11.2 is the minimum version that Tailwind's supported natively by AngularCLI
+ */
 export const minimumAngularCliVersion = '11.2';
