@@ -18,10 +18,10 @@ import {
   getLatestNodeVersion,
   isNx,
   minimumAngularCliVersion,
-  normalizeOptionsNx,
   updateIndexHtml,
   updateProjectRootStyles,
 } from '../../utils';
+import { normalizeOptionsNx } from '../../utils/normalize-options-nx';
 import type { TailwindSchematicsOptions } from '../schema';
 
 export default function (options: TailwindSchematicsOptions): Rule {

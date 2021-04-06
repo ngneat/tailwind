@@ -1,6 +1,6 @@
 import { Tree } from '@angular-devkit/schematics';
 import { getWorkspace } from '@schematics/angular/utility/workspace';
-import {
+import type {
   NormalizedTailwindSchematicsOptions,
   TailwindSchematicsOptions,
 } from '../schematics/schema';

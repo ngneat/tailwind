@@ -25,10 +25,10 @@ import {
   getLatestNodeVersion,
   isNx,
   minimumAngularCliVersion,
-  normalizeOptionsNg,
   updateIndexHtml,
   updateProjectRootStyles,
 } from '../../utils';
+import { normalizeOptionsNg } from '../../utils/normalize-options-ng';
 import type {
   NormalizedTailwindSchematicsOptions,
   TailwindSchematicsOptions,

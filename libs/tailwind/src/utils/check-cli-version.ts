@@ -1,5 +1,7 @@
-import { SchematicsException, Tree } from '@angular-devkit/schematics';
-import { CompareOperator, compareVersions } from './compare-version';
+import type { Tree } from '@angular-devkit/schematics';
+import { SchematicsException } from '@angular-devkit/schematics';
+import type { CompareOperator } from './compare-version';
+import { compareVersions } from './compare-version';
 
 export function checkCliVersion(
   tree: Tree,
