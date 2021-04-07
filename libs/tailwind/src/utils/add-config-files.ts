@@ -13,6 +13,7 @@ import { NormalizedTailwindSchematicsOptions } from '../schematics/schema';
 import { isInJest } from './is-in-jest';
 
 export function addConfigFiles({
+  enableJit,
   darkMode,
   appsDir,
   libsDir,
@@ -27,6 +28,7 @@ export function addConfigFiles({
           return tree.exists(`./${entryName.name}`) ? null : entry;
         }),
         applyTemplates({
+          enableJit,
           darkMode,
           appsDir,
           libsDir,

@@ -12,10 +12,20 @@
       },
       "x-prompt": "What project would you like to use? (skip to use default project)"
     },
+    "enableJit": {
+      "description": "Whether to enable JIT compilation in tailwind.config.js",
+      "type": "boolean",
+      "default": false,
+      "x-prompt": "Would you like to enable Tailwind JIT (preview feature)?"
+    },
     "darkMode": {
       "description": "Whether to enable darkMode in tailwind.config.js",
       "type": "string",
-      "enum": ["none", "class", "media"],
+      "enum": [
+        "none",
+        "class",
+        "media"
+      ],
       "default": "none",
       "x-prompt": "Would you like to enable dark mode?"
     },
@@ -30,7 +40,12 @@
           "type": "array",
           "uniqueItems": true,
           "items": {
-            "enum": ["aspect-ratio", "forms", "line-clamp", "typography"],
+            "enum": [
+              "aspect-ratio",
+              "forms",
+              "line-clamp",
+              "typography"
+            ],
             "type": "string"
           },
           "x-prompt": "What @tailwindcss plugins do you want to enable?"
