@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "NxSetup",
+  "$id": "NxSetup",
   "title": "Schematics to setup Tailwind for Angular applications in Nx Workspace (with Nx CLI)",
   "type": "object",
   "properties": {

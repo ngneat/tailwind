@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "NgAdd",
+  "$id": "NgAdd",
   "title": "Schematics to setup Tailwind for Angular applications in AngularCLI/Nx Workspace (with Angular CLI)",
   "type": "object",
   "properties": {
