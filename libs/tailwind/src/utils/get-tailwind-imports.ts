@@ -1,5 +1,5 @@
 export function getTailwindImports(): string {
-  return `@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';\n`;
+  return `@use '~tailwindcss/base';
+@use '~tailwindcss/components';
+@use '~tailwindcss/utilities';\n`;
 }
